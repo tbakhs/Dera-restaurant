@@ -1,0 +1,1519 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dera Jeddah | Saudi Hyderabadi Restaurant</title>
+    <meta
+      name="description"
+      content="A classic Saudi and Hyderabadi restaurant website for Jeddah with menu, reservations, real photos, and subtle animation."
+    >
+    <link rel="preconnect" href="https://unpkg.com">
+    <style>
+:root {
+  --ink: #2b2118;
+  --muted: #766a5c;
+  --paper: #fbf7ed;
+  --cream: #fffdf7;
+  --panel: rgba(255, 253, 247, 0.82);
+  --line: #ded2bd;
+  --gold: #b88935;
+  --gold-dark: #7c5520;
+  --green: #315f4d;
+  --terracotta: #9f5639;
+  --shadow: 0 18px 48px rgba(73, 50, 25, 0.13);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(255, 253, 247, 0.86), rgba(255, 253, 247, 0.94)),
+    radial-gradient(circle at 18% 8%, rgba(184, 137, 53, 0.18), transparent 24%),
+    radial-gradient(circle at 88% 18%, rgba(49, 95, 77, 0.12), transparent 28%),
+    var(--paper);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  content: "";
+  background-image:
+    linear-gradient(rgba(124, 85, 32, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 85, 32, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+.ambient {
+  position: fixed;
+  inset: auto 8% -22% 8%;
+  z-index: -1;
+  height: 34vh;
+  background: linear-gradient(90deg, rgba(184, 137, 53, 0.14), rgba(49, 95, 77, 0.08));
+  filter: blur(70px);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.site-header {
+  position: sticky;
+  top: 16px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1180px, calc(100% - 32px));
+  min-height: 74px;
+  margin: 16px auto 0;
+  padding: 12px;
+  border: 1px solid rgba(222, 210, 189, 0.9);
+  border-radius: 8px;
+  background: rgba(255, 253, 247, 0.86);
+  box-shadow: 0 14px 34px rgba(76, 52, 27, 0.1);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(124, 85, 32, 0.35);
+  border-radius: 50%;
+  background: #fff6df;
+  color: var(--gold-dark);
+  font-weight: 900;
+}
+
+.brand strong,
+.brand small {
+  display: block;
+}
+
+.brand strong {
+  font-size: 1.03rem;
+  letter-spacing: 0.02em;
+}
+
+.brand small,
+.eyebrow,
+.stage-glass small,
+footer {
+  color: var(--muted);
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-links a,
+.cart-button,
+.menu-tabs button,
+.secondary-action,
+.primary-action,
+.reservation-card button,
+.checkout-button {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+}
+
+.nav-links a {
+  display: grid;
+  place-items: center;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.52);
+  font-size: 0.94rem;
+}
+
+.nav-links a:hover,
+.menu-tabs button:hover,
+.secondary-action:hover {
+  border-color: rgba(184, 137, 53, 0.7);
+  color: var(--gold-dark);
+}
+
+.cart-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 14px;
+  background: #fff6df;
+  cursor: pointer;
+}
+
+.cart-icon {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fffdf7;
+  font-weight: 900;
+}
+
+main {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: 44px;
+  align-items: center;
+  min-height: calc(100vh - 96px);
+  padding: 44px 0 28px;
+}
+
+.hero-copy {
+  padding: 24px 0;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 720px;
+  margin-bottom: 24px;
+  font-size: clamp(3.15rem, 7vw, 6.8rem);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 16px;
+  font-size: clamp(2rem, 4vw, 4.1rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.hero-text,
+.story-copy p,
+.visit-section p {
+  max-width: 640px;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.primary-action,
+.secondary-action {
+  display: inline-grid;
+  min-width: 150px;
+  place-items: center;
+  padding: 0 20px;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.primary-action {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fffdf7;
+}
+
+.secondary-action {
+  background: rgba(255, 253, 247, 0.72);
+}
+
+.hero-stage {
+  position: relative;
+  min-height: 650px;
+  border: 10px solid #fffdf7;
+  border-radius: 8px;
+  background: #efe4cf;
+  box-shadow: var(--shadow);
+  outline: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.hero-stage::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.02), rgba(38, 27, 17, 0.26)),
+    radial-gradient(circle at 50% 36%, transparent 0 44%, rgba(51, 37, 22, 0.22) 76%);
+  pointer-events: none;
+}
+
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+#dishCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.36;
+  mix-blend-mode: soft-light;
+}
+
+.stage-glass {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  border: 1px solid rgba(255, 253, 247, 0.64);
+  border-radius: 8px;
+  background: rgba(255, 253, 247, 0.76);
+  box-shadow: 0 18px 44px rgba(54, 35, 18, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.stage-glass span {
+  color: var(--gold-dark);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stage-glass strong {
+  color: var(--ink);
+  font-size: 1.25rem;
+}
+
+.quick-panel,
+.specials-section,
+.experience-section,
+.story-section,
+.gallery-section,
+.reviews-section,
+.visit-section {
+  display: grid;
+  gap: 18px;
+  margin: 20px 0 96px;
+}
+
+.quick-panel {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.quick-panel article,
+.menu-card,
+.reservation-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 14px 38px rgba(73, 50, 25, 0.08);
+}
+
+.quick-panel article {
+  padding: 24px;
+}
+
+.quick-panel span {
+  color: var(--gold-dark);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.quick-panel strong {
+  display: block;
+  margin: 10px 0 8px;
+  font-size: 1.22rem;
+  font-weight: 500;
+}
+
+.quick-panel p,
+.menu-card p,
+.specials-grid p,
+.experience-grid p,
+.reviews-grid p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.specials-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+  gap: 20px;
+}
+
+.special-feature,
+.special-list article,
+.experience-grid article,
+.reviews-grid blockquote {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 14px 38px rgba(73, 50, 25, 0.08);
+}
+
+.special-feature {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.92fr) minmax(0, 1.08fr);
+  overflow: hidden;
+}
+
+.special-feature img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+}
+
+.special-feature div {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  padding: 28px;
+}
+
+.special-feature span,
+.special-list span,
+.experience-grid span {
+  color: var(--gold-dark);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.special-feature h3,
+.special-list h3,
+.experience-grid h3 {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 500;
+}
+
+.special-feature strong {
+  color: var(--green);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+}
+
+.special-list {
+  display: grid;
+  gap: 14px;
+}
+
+.special-list article,
+.experience-grid article {
+  display: grid;
+  gap: 10px;
+  padding: 22px;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.menu-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.menu-tabs button {
+  padding: 0 18px;
+  background: rgba(255, 253, 247, 0.72);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.menu-tabs .active {
+  border-color: var(--green);
+  background: #eef4ee;
+  color: var(--green);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.menu-card {
+  position: relative;
+  display: grid;
+  min-height: 374px;
+  grid-template-rows: 196px 1fr;
+  overflow: hidden;
+}
+
+.dish-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.95) contrast(1.02);
+  transition: transform 240ms ease, filter 240ms ease;
+}
+
+.menu-card:hover .dish-photo {
+  filter: saturate(1.04) contrast(1.03);
+  transform: scale(1.028);
+}
+
+.menu-content {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+}
+
+.menu-meta {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.menu-meta h3 {
+  margin: 0;
+  font-size: 1.32rem;
+  font-weight: 500;
+  line-height: 1.18;
+}
+
+.price {
+  color: var(--gold-dark);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.menu-card button {
+  align-self: end;
+  min-height: 42px;
+  border: 1px solid rgba(49, 95, 77, 0.45);
+  border-radius: 8px;
+  background: #f4f8f3;
+  color: var(--green);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.story-section {
+  grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+}
+
+.story-visual {
+  display: grid;
+  min-height: 460px;
+  place-items: center;
+  border: 10px solid #fffdf7;
+  border-radius: 8px;
+  background: #efe4cf;
+  outline: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.story-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.stats span {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 253, 247, 0.72);
+  color: var(--muted);
+}
+
+.stats strong {
+  color: var(--green);
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 0.8fr;
+  grid-auto-rows: 230px;
+  gap: 16px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 100%;
+  border: 8px solid #fffdf7;
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(73, 50, 25, 0.1);
+  object-fit: cover;
+  outline: 1px solid var(--line);
+}
+
+.gallery-grid img:first-child {
+  grid-row: span 2;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.reviews-grid blockquote {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 26px;
+}
+
+.reviews-grid p {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.reviews-grid cite {
+  color: var(--green);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.visit-section {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+  align-items: start;
+  padding: 36px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 253, 247, 0.92), rgba(248, 239, 220, 0.9)),
+    radial-gradient(circle at 90% 20%, rgba(184, 137, 53, 0.12), transparent 30%);
+  box-shadow: var(--shadow);
+}
+
+.visit-details {
+  display: grid;
+  gap: 10px;
+  max-width: 560px;
+  margin-top: 24px;
+}
+
+.visit-details span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.visit-details strong {
+  color: var(--ink);
+}
+
+.reservation-card {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+}
+
+.reservation-card label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.reservation-card input,
+.reservation-card select {
+  min-height: 46px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf7;
+  color: var(--ink);
+  padding: 0 12px;
+}
+
+.reservation-card option {
+  color: var(--ink);
+}
+
+.reservation-card button,
+.checkout-button {
+  min-height: 48px;
+  background: var(--green);
+  color: #fffdf7;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cart-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  justify-items: end;
+  background: rgba(43, 33, 24, 0.22);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.cart-drawer.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer-panel {
+  width: min(430px, 100%);
+  height: 100%;
+  padding: 22px;
+  border-left: 1px solid var(--line);
+  background: rgba(255, 253, 247, 0.96);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  transform: translateX(100%);
+  transition: transform 220ms ease;
+}
+
+.cart-drawer.open .drawer-panel {
+  transform: translateX(0);
+}
+
+.drawer-header,
+.cart-row,
+.cart-total,
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.drawer-header button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff6df;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.cart-items {
+  display: grid;
+  gap: 10px;
+  min-height: 160px;
+  margin: 22px 0;
+}
+
+.cart-row {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf7;
+}
+
+.cart-row strong,
+.cart-row small {
+  display: block;
+}
+
+.cart-row small,
+.empty-cart {
+  color: var(--muted);
+}
+
+.cart-total {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.checkout-button {
+  width: 100%;
+}
+
+footer {
+  width: min(1180px, calc(100% - 32px));
+  min-height: 76px;
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 920px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero,
+  .specials-grid,
+  .special-feature,
+  .story-section,
+  .visit-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 64px;
+  }
+
+  .hero-stage {
+    min-height: 520px;
+  }
+
+  .quick-panel,
+  .menu-grid,
+  .experience-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    top: 8px;
+    width: calc(100% - 20px);
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  main,
+  footer {
+    width: calc(100% - 20px);
+  }
+
+  h1 {
+    font-size: clamp(3rem, 16vw, 4.75rem);
+  }
+
+  .hero-stage {
+    min-height: 430px;
+    border-width: 7px;
+  }
+
+  .quick-panel,
+  .menu-grid,
+  .experience-grid,
+  .reviews-grid,
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 220px;
+  }
+
+  .gallery-grid img:first-child {
+    grid-row: auto;
+  }
+
+  .visit-details span {
+    align-items: start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .visit-section {
+    padding: 20px;
+  }
+
+  footer {
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="Dera Jeddah home">
+        <span class="brand-mark">DJ</span>
+        <span>
+          <strong>Dera Jeddah</strong>
+          <small>Saudi Hyderabadi Kitchen</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#menu">Menu</a>
+        <a href="#story">Story</a>
+        <a href="#visit">Visit</a>
+      </nav>
+
+      <button class="cart-button" type="button" data-open-cart aria-label="Open order tray">
+        <span class="cart-icon" aria-hidden="true">+</span>
+        <span data-cart-count>0</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">Classic dining in Jeddah</p>
+          <h1>Saudi hospitality, Hyderabadi heritage.</h1>
+          <p class="hero-text">
+            Slow-cooked mandi, fragrant dum biryani, grilled kebabs, saffron desserts,
+            and fresh juices served with old-world warmth near the Red Sea.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#menu">View Menu</a>
+            <a class="secondary-action" href="#visit">Reserve Table</a>
+          </div>
+        </div>
+
+        <div class="hero-stage" aria-label="Signature dish photography with subtle 3D animation">
+          <img
+            class="hero-photo"
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg"
+            alt="Hyderabadi biryani served in a restaurant"
+            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg';"
+          >
+          <canvas id="dishCanvas"></canvas>
+          <div class="stage-glass">
+            <span>House signature</span>
+            <strong>Royal Mandi Biryani</strong>
+            <small>Smoked lamb, basmati, saffron, fried onion</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="quick-panel" aria-label="Restaurant highlights">
+        <article>
+          <span>01</span>
+          <strong>Live Grill</strong>
+          <p>Charcoal kebabs finished with Saudi spices and Hyderabadi marinades.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Family Majlis</strong>
+          <p>Private glass lounges for family dinners, celebrations, and late tea.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Jeddah Delivery</strong>
+          <p>Fast service across Al Hamra, Aziziyah, Rawdah, and Corniche districts.</p>
+        </article>
+      </section>
+
+      <section class="specials-section" aria-label="Chef recommendations">
+        <div class="section-heading">
+          <p class="eyebrow">House favorites</p>
+          <h2>Chef Recommendations</h2>
+        </div>
+        <div class="specials-grid">
+          <article class="special-feature">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/8/87/Chicken_Mandi_At_Arabian_Mandi_Hyderabad.jpg"
+              alt="Large platter of mandi rice and grilled chicken"
+            >
+            <div>
+              <span>For sharing</span>
+              <h3>Royal Family Mandi Platter</h3>
+              <p>
+                A generous tray of smoked chicken mandi, fragrant rice, dakkous, fresh salad,
+                fried onion, lemon, and warm bread. Prepared for four guests.
+              </p>
+              <strong>SAR 149</strong>
+            </div>
+          </article>
+          <div class="special-list">
+            <article>
+              <span>Lunch set</span>
+              <h3>Business Biryani Tray</h3>
+              <p>Chicken dum biryani, raita, mirchi salan, salad, and karak tea.</p>
+            </article>
+            <article>
+              <span>Evening</span>
+              <h3>Grill & Chai Majlis</h3>
+              <p>Seekh kebab, chicken tikka, naan, mint chutney, and saffron karak.</p>
+            </article>
+            <article>
+              <span>Sweet finish</span>
+              <h3>Kunafa & Double Ka Meetha</h3>
+              <p>Two classic desserts with pistachio, rose cream, and cardamom syrup.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="menu-section" id="menu">
+        <div class="section-heading">
+          <p class="eyebrow">Chef selected</p>
+          <h2>Our Menu</h2>
+        </div>
+
+        <div class="menu-tabs" role="tablist" aria-label="Menu filters">
+          <button class="active" type="button" data-filter="all">All</button>
+          <button type="button" data-filter="mains">Mains</button>
+          <button type="button" data-filter="grill">Grill</button>
+          <button type="button" data-filter="dessert">Dessert</button>
+          <button type="button" data-filter="drinks">Drinks</button>
+        </div>
+
+        <div class="menu-grid" data-menu-grid></div>
+      </section>
+
+      <section class="experience-section" aria-label="Dining experiences">
+        <div class="section-heading">
+          <p class="eyebrow">Occasions</p>
+          <h2>Dining Experiences</h2>
+        </div>
+        <div class="experience-grid">
+          <article>
+            <span>Families</span>
+            <h3>Private Majlis Rooms</h3>
+            <p>Quiet family spaces with comfortable seating, table service, and set menus for gatherings.</p>
+          </article>
+          <article>
+            <span>Events</span>
+            <h3>Celebration Trays</h3>
+            <p>Large mandi, kabsa, biryani, grill, and dessert trays prepared for birthdays and office meals.</p>
+          </article>
+          <article>
+            <span>Takeaway</span>
+            <h3>Fresh Packed Orders</h3>
+            <p>Rice and grill dishes packed hot with sauces separated so every order arrives properly.</p>
+          </article>
+          <article>
+            <span>Late night</span>
+            <h3>Karak & Dessert Service</h3>
+            <p>After-dinner tea, kunafa, lassi, and light snacks served until closing.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="story-section" id="story">
+        <div class="story-visual" aria-hidden="true">
+          <img
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=85"
+            alt=""
+            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/8/87/Chicken_Mandi_At_Arabian_Mandi_Hyderabad.jpg';"
+          >
+        </div>
+        <div class="story-copy">
+          <p class="eyebrow">Our kitchen</p>
+          <h2>Built for the taste of Jeddah.</h2>
+          <p>
+            Dera Jeddah blends Gulf hospitality with Deccan depth: cardamom, black lime,
+            saffron, mint, smoked meat, and rice cooked until every grain carries flavor.
+          </p>
+          <div class="stats">
+            <span><strong>24</strong> dishes</span>
+            <span><strong>4.9</strong> guest score</span>
+            <span><strong>12m</strong> average prep</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-section" aria-label="Restaurant gallery">
+        <div class="section-heading">
+          <p class="eyebrow">Gallery</p>
+          <h2>From the Table</h2>
+        </div>
+        <div class="gallery-grid">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg" alt="Hyderabadi biryani close-up">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Chicken_Mandi_At_Arabian_Mandi_Hyderabad.jpg" alt="Chicken mandi platter">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Pakistani_Food_Beef_Kabobs.jpg" alt="Grilled kebabs">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Salt_lassi.jpg" alt="Lassi drink">
+        </div>
+      </section>
+
+      <section class="reviews-section" aria-label="Guest reviews">
+        <div class="section-heading">
+          <p class="eyebrow">Guest notes</p>
+          <h2>What Guests Say</h2>
+        </div>
+        <div class="reviews-grid">
+          <blockquote>
+            <p>"The biryani tastes like a proper Hyderabadi kitchen, but the service feels very Jeddah."</p>
+            <cite>Adeel K.</cite>
+          </blockquote>
+          <blockquote>
+            <p>"Beautiful place for family dinner. The mandi tray and karak were the best part."</p>
+            <cite>Sarah A.</cite>
+          </blockquote>
+          <blockquote>
+            <p>"Clean, classic, and generous. The private seating makes it easy to come with guests."</p>
+            <cite>Fahad M.</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section class="visit-section" id="visit">
+        <div>
+          <p class="eyebrow">Visit us</p>
+          <h2>Prince Sultan Road, Jeddah</h2>
+          <p>Open daily from 12:00 PM to 2:00 AM. Family dining, private rooms, takeaway, and delivery.</p>
+          <div class="visit-details">
+            <span><strong>Phone</strong> +966 12 555 0188</span>
+            <span><strong>Service</strong> Dine-in, pickup, delivery</span>
+            <span><strong>Areas</strong> Al Hamra, Rawdah, Aziziyah, Corniche</span>
+          </div>
+        </div>
+        <form class="reservation-card" aria-label="Reservation form">
+          <label>
+            Name
+            <input type="text" name="name" placeholder="Your name">
+          </label>
+          <label>
+            Guests
+            <select name="guests">
+              <option>2 guests</option>
+              <option>4 guests</option>
+              <option>6 guests</option>
+              <option>8 guests</option>
+            </select>
+          </label>
+          <label>
+            Time
+            <input type="time" name="time" value="20:30">
+          </label>
+          <button type="submit">Request Table</button>
+        </form>
+      </section>
+    </main>
+
+    <aside class="cart-drawer" data-cart-drawer aria-hidden="true">
+      <div class="drawer-panel">
+        <div class="drawer-header">
+          <div>
+            <span class="eyebrow">Order tray</span>
+            <h2>Your Selection</h2>
+          </div>
+          <button type="button" data-close-cart aria-label="Close order tray">x</button>
+        </div>
+        <div class="cart-items" data-cart-items></div>
+        <div class="cart-total">
+          <span>Total</span>
+          <strong data-cart-total>SAR 0</strong>
+        </div>
+        <button class="checkout-button" type="button">Send Order</button>
+      </div>
+    </aside>
+
+    <footer>
+      <span>Dera Jeddah</span>
+      <span>Saudi Hyderabadi Restaurant in Jeddah</span>
+    </footer>
+
+    <script>
+const FALLBACK_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg";
+
+const menuItems = [
+  {
+    name: "Royal Mandi Biryani",
+    desc: "Smoked lamb shoulder, mandi masala, saffron basmati, fried onion, almond.",
+    price: 68,
+    cat: "mains",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg",
+  },
+  {
+    name: "Hyderabadi Dum Chicken",
+    desc: "Sealed-pot biryani with mint, coriander, browned onion, raita, and mirchi salan.",
+    price: 54,
+    cat: "mains",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg",
+  },
+  {
+    name: "Najdi Kabsa Short Rib",
+    desc: "Tender beef rib, tomato rice, black lime, roasted nuts, and house dakkous.",
+    price: 74,
+    cat: "mains",
+    image: "https://upload.wikimedia.org/wikipedia/commons/8/87/Chicken_Mandi_At_Arabian_Mandi_Hyderabad.jpg",
+  },
+  {
+    name: "Charcoal Seekh Kebab",
+    desc: "Hand-minced lamb, green chili, garam masala, lemon smoke, and mint chutney.",
+    price: 42,
+    cat: "grill",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Pakistani_Food_Beef_Kabobs.jpg",
+  },
+  {
+    name: "Jeddah Prawn Tikka",
+    desc: "Red Sea prawns, yogurt marinade, curry leaf butter, and crisp onion.",
+    price: 58,
+    cat: "grill",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Pakistani_Food_Beef_Kabobs.jpg",
+  },
+  {
+    name: "Chicken 65 Sliders",
+    desc: "Crispy spiced chicken, soft buns, garlic yogurt, pickled onion, and chili dust.",
+    price: 36,
+    cat: "grill",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0c/Pakistani_Food_Beef_Kabobs.jpg",
+  },
+  {
+    name: "Saffron Kunafa Cloud",
+    desc: "Warm kunafa, rose cream, pistachio, cardamom syrup, and orange zest.",
+    price: 31,
+    cat: "dessert",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/06/Nablus_souq_kanafeh_131_-_Aug_2011.jpg",
+  },
+  {
+    name: "Double Ka Meetha",
+    desc: "Hyderabadi bread pudding with rabri, cashew, golden raisin, and saffron.",
+    price: 28,
+    cat: "dessert",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/06/Nablus_souq_kanafeh_131_-_Aug_2011.jpg",
+  },
+  {
+    name: "Mint Laban Cooler",
+    desc: "Fresh laban, mint, cucumber, roasted cumin, sea salt, and crushed ice.",
+    price: 18,
+    cat: "drinks",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Salt_lassi.jpg",
+  },
+  {
+    name: "Red Sea Citrus Fizz",
+    desc: "Blood orange, lime, pomegranate, basil seed, and sparkling water.",
+    price: 22,
+    cat: "drinks",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Mint_lassi.jpg",
+  },
+  {
+    name: "Karak Saffron Tea",
+    desc: "Slow-boiled tea with saffron, cardamom, milk, and a clean spice finish.",
+    price: 14,
+    cat: "drinks",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Salt_lassi.jpg",
+  },
+  {
+    name: "Hyderabadi Haleem Bowl",
+    desc: "Slow wheat, lentils, lamb, ghee, ginger, crisp onion, and lemon.",
+    price: 47,
+    cat: "mains",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg",
+  },
+];
+
+const cart = new Map();
+const menuGrid = document.querySelector("[data-menu-grid]");
+const cartDrawer = document.querySelector("[data-cart-drawer]");
+const cartItems = document.querySelector("[data-cart-items]");
+const cartCount = document.querySelector("[data-cart-count]");
+const cartTotal = document.querySelector("[data-cart-total]");
+
+function formatSar(value) {
+  return `SAR ${value}`;
+}
+
+function renderMenu(filter = "all") {
+  const visibleItems = filter === "all" ? menuItems : menuItems.filter((item) => item.cat === filter);
+  menuGrid.innerHTML = visibleItems
+    .map(
+      (item) => `
+        <article class="menu-card">
+          <img class="dish-photo" src="${item.image}" alt="${item.name}" loading="lazy">
+          <div class="menu-content">
+            <div class="menu-meta">
+              <h3>${item.name}</h3>
+              <span class="price">${formatSar(item.price)}</span>
+            </div>
+            <p>${item.desc}</p>
+            <button type="button" data-add="${item.name}">Add to tray</button>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function renderCart() {
+  const entries = [...cart.values()];
+  const total = entries.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const count = entries.reduce((sum, item) => sum + item.qty, 0);
+
+  cartCount.textContent = count;
+  cartTotal.textContent = formatSar(total);
+  cartItems.innerHTML = entries.length
+    ? entries
+        .map(
+          (item) => `
+            <div class="cart-row">
+              <span>
+                <strong>${item.name}</strong>
+                <small>${item.qty} x ${formatSar(item.price)}</small>
+              </span>
+              <strong>${formatSar(item.price * item.qty)}</strong>
+            </div>
+          `,
+        )
+        .join("")
+    : `<p class="empty-cart">Your tray is ready for something excellent.</p>`;
+}
+
+document.addEventListener("click", (event) => {
+  const addButton = event.target.closest("[data-add]");
+  const filterButton = event.target.closest("[data-filter]");
+
+  if (addButton) {
+    const item = menuItems.find((dish) => dish.name === addButton.dataset.add);
+    const current = cart.get(item.name) || { ...item, qty: 0 };
+    current.qty += 1;
+    cart.set(item.name, current);
+    renderCart();
+    cartDrawer.classList.add("open");
+    cartDrawer.setAttribute("aria-hidden", "false");
+  }
+
+  if (filterButton) {
+    document.querySelectorAll("[data-filter]").forEach((button) => button.classList.remove("active"));
+    filterButton.classList.add("active");
+    renderMenu(filterButton.dataset.filter);
+  }
+
+  if (event.target.closest("[data-open-cart]")) {
+    cartDrawer.classList.add("open");
+    cartDrawer.setAttribute("aria-hidden", "false");
+  }
+
+  if (event.target.closest("[data-close-cart]") || event.target === cartDrawer) {
+    cartDrawer.classList.remove("open");
+    cartDrawer.setAttribute("aria-hidden", "true");
+  }
+});
+
+document.addEventListener(
+  "error",
+  (event) => {
+    if (event.target instanceof HTMLImageElement && event.target.src !== FALLBACK_IMAGE) {
+      event.target.src = FALLBACK_IMAGE;
+    }
+  },
+  true,
+);
+
+document.querySelector(".reservation-card").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const button = event.currentTarget.querySelector("button");
+  button.textContent = "Request Sent";
+  setTimeout(() => {
+    button.textContent = "Request Table";
+  }, 1800);
+});
+
+function startFallbackCanvas(canvas) {
+  const ctx = canvas.getContext("2d");
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let width = 0;
+  let height = 0;
+  let rafId = 0;
+  const particles = Array.from({ length: 34 }, (_, index) => ({
+    x: Math.random(),
+    y: Math.random(),
+    size: 1.4 + Math.random() * 3.4,
+    speed: 0.08 + Math.random() * 0.18,
+    drift: (Math.random() - 0.5) * 0.08,
+    hue: index % 3,
+  }));
+
+  function resize() {
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function draw(time) {
+    const t = time * 0.001;
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach((particle, index) => {
+      const x = ((particle.x + Math.sin(t * particle.speed + index) * particle.drift + 1) % 1) * width;
+      const y = ((particle.y - t * particle.speed * 0.08 + 1) % 1) * height;
+      const alpha = 0.22 + Math.sin(t + index) * 0.12;
+      const colors = [
+        `rgba(240,184,75,${alpha})`,
+        `rgba(255,245,218,${alpha * 0.72})`,
+        `rgba(85,184,137,${alpha * 0.54})`,
+      ];
+      ctx.beginPath();
+      ctx.arc(x, y, particle.size, 0, Math.PI * 2);
+      ctx.fillStyle = colors[particle.hue];
+      ctx.fill();
+    });
+
+    rafId = requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener("resize", resize);
+  rafId = requestAnimationFrame(draw);
+  return () => cancelAnimationFrame(rafId);
+}
+
+async function startThreeScene() {
+  const canvas = document.querySelector("#dishCanvas");
+
+  try {
+    const THREE = await import("https://unpkg.com/three@0.165.0/build/three.module.js");
+    const scene = new THREE.Scene();
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+    camera.position.set(0, 0.8, 7.2);
+    camera.lookAt(0, 0, 0);
+
+    const group = new THREE.Group();
+    scene.add(group);
+    const particles = [];
+    const materials = [
+      new THREE.MeshBasicMaterial({ color: 0xf0b84b, transparent: true, opacity: 0.5 }),
+      new THREE.MeshBasicMaterial({ color: 0xfff1d2, transparent: true, opacity: 0.36 }),
+      new THREE.MeshBasicMaterial({ color: 0x55b889, transparent: true, opacity: 0.28 }),
+    ];
+
+    for (let i = 0; i < 46; i += 1) {
+      const geometry = i % 4 === 0 ? new THREE.BoxGeometry(0.08, 0.018, 0.018) : new THREE.SphereGeometry(0.035 + Math.random() * 0.035, 14, 14);
+      const particle = new THREE.Mesh(geometry, materials[i % materials.length].clone());
+      particle.userData = {
+        angle: Math.random() * Math.PI * 2,
+        radius: 1.2 + Math.random() * 2.6,
+        speed: 0.16 + Math.random() * 0.32,
+        lift: Math.random() * 1.5,
+      };
+      group.add(particle);
+      particles.push(particle);
+    }
+
+    function resize() {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    }
+
+    function animate(time) {
+      const t = time * 0.001;
+      particles.forEach((particle, index) => {
+        const data = particle.userData;
+        const angle = data.angle + t * data.speed;
+        particle.position.set(
+          Math.cos(angle) * data.radius,
+          -1.4 + ((data.lift + t * 0.22) % 2.9),
+          Math.sin(angle) * data.radius * 0.34,
+        );
+        particle.rotation.set(t * 0.4 + index, angle, t * 0.2);
+        particle.material.opacity = 0.18 + Math.sin(t * 1.3 + index) * 0.14;
+      });
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    requestAnimationFrame(animate);
+  } catch (error) {
+    startFallbackCanvas(canvas);
+  }
+}
+
+renderMenu();
+renderCart();
+startThreeScene();
+
+    </script>
+  </body>
+</html>
